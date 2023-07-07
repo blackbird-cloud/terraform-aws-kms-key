@@ -6,6 +6,7 @@ variable "name" {
 variable "policy" {
   description = "The fully-formed AWS policy as JSON for the KMS key"
   type        = string
+  default     = null
 }
 
 variable "grants" {
