@@ -1,3 +1,47 @@
+<!-- BEGIN_TF_DOCS -->
+[![blackbird-logo](https://raw.githubusercontent.com/blackbird-cloud/terraform-module-template/main/.config/logo_simple.png)](https://www.blackbird.cloud)
+
+# AWS KMS CMK Terraform module
+A Terraform module which helps you create AWS KMS Customer managed keys. Read [this](https://docs.aws.amazon.com/kms/latest/developerguide/create-keys.html) page for more information, and for a secure reference architecture by AWS, read [this](https://docs.aws.amazon.com/prescriptive-guidance/latest/security-reference-architecture/welcome.html) page.
+
+## Example
+```hcl
+data "aws_caller_identity" "current" {}
+
+module "key" {
+  source  = "blackbird-cloud/kms-key/aws"
+  version = "~> 0"
+
+  name = "my-cmk"
+
+  policy = <<EOF
+  
+{
+    "Version": "2012-10-17",
+    "Id": "mykey-policy",
+    "Statement": [
+        {
+            "Sid": "Allow source account access to KMS key in source account",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
+            },
+            "Action": "kms:*",
+            "Resource": "*"
+        }
+    ]
+}
+EOF
+  grants = [
+    {
+      name              = "My grant"
+      grantee_principal = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/my-role"
+      operations        = ["Encrypt", "Decrypt", "GenerateDataKey"]
+    }
+  ]
+}
+```
+
 ## Requirements
 
 | Name | Version |
@@ -9,11 +53,7 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.46.0 |
-
-## Modules
-
-No modules.
+| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4 |
 
 ## Resources
 
@@ -31,7 +71,7 @@ No modules.
 | <a name="input_grants"></a> [grants](#input\_grants) | List of Gants to give. { name, grantee\_principal, operations } | `list(any)` | `[]` | no |
 | <a name="input_multi_region"></a> [multi\_region](#input\_multi\_region) | (Optional) Indicates whether the KMS key is a multi-Region (true) or regional (false) key. Defaults to false. | `bool` | `false` | no |
 | <a name="input_name"></a> [name](#input\_name) | The name of the KMS key to create | `string` | n/a | yes |
-| <a name="input_policy"></a> [policy](#input\_policy) | The fully-formed AWS policy as JSON for the KMS key | `string` | n/a | yes |
+| <a name="input_policy"></a> [policy](#input\_policy) | The fully-formed AWS policy as JSON for the KMS key | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags to assign to all resources | `map(string)` | `{}` | no |
 
 ## Outputs
@@ -41,3 +81,14 @@ No modules.
 | <a name="output_alias"></a> [alias](#output\_alias) | KMS key alias |
 | <a name="output_grants"></a> [grants](#output\_grants) | KMS key grants |
 | <a name="output_kms"></a> [kms](#output\_kms) | KMS key |
+
+## About
+
+We are [Blackbird Cloud](https://blackbird.cloud), Amsterdam based cloud consultancy, and cloud management service provider. We help companies build secure, cost efficient, and scale-able solutions.
+
+Checkout our other :point\_right: [terraform modules](https://registry.terraform.io/namespaces/blackbird-cloud)
+
+## Copyright
+
+Copyright © 2017-2023 [Blackbird Cloud](https://www.blackbird.cloud)
+<!-- END_TF_DOCS -->
