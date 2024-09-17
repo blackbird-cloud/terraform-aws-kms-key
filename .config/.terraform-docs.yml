@@ -14,10 +14,9 @@ sections:
     - modules
 
 content: |-
-  {{ .Header }}
+  {{ include "./.config/title.md"}}
 
-  # AWS KMS CMK Terraform module
-  A Terraform module which helps you create AWS KMS Customer managed keys. Read [this](https://docs.aws.amazon.com/kms/latest/developerguide/create-keys.html) page for more information, and for a secure reference architecture by AWS, read [this](https://docs.aws.amazon.com/prescriptive-guidance/latest/security-reference-architecture/welcome.html) page.
+  {{ .Header }}
 
   ## Example
   ```hcl
