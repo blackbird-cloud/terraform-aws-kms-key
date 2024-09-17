@@ -1,8 +1,8 @@
 <!-- BEGIN_TF_DOCS -->
-[![blackbird-logo](https://raw.githubusercontent.com/blackbird-cloud/terraform-module-template/main/.config/logo_simple.png)](https://www.blackbird.cloud)
+# Terraform Aws Kms Key Module
+Terraform module to create an AWS KMS key
 
-# AWS KMS CMK Terraform module
-A Terraform module which helps you create AWS KMS Customer managed keys. Read [this](https://docs.aws.amazon.com/kms/latest/developerguide/create-keys.html) page for more information, and for a secure reference architecture by AWS, read [this](https://docs.aws.amazon.com/prescriptive-guidance/latest/security-reference-architecture/welcome.html) page.
+[![blackbird-logo](https://raw.githubusercontent.com/blackbird-cloud/terraform-module-template/main/.config/logo_simple.png)](https://blackbird.cloud)
 
 ## Example
 ```hcl
@@ -47,13 +47,13 @@ EOF
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.0.9 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4 |
 
 ## Resources
 
@@ -90,5 +90,5 @@ Checkout our other :point\_right: [terraform modules](https://registry.terraform
 
 ## Copyright
 
-Copyright © 2017-2023 [Blackbird Cloud](https://www.blackbird.cloud)
+Copyright © 2017-2024 [Blackbird Cloud](https://blackbird.cloud)
 <!-- END_TF_DOCS -->
